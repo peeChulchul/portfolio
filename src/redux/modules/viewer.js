@@ -10,13 +10,13 @@ const viewer = createSlice({
   initialState,
   reducers: {
     scrollDown(state) {
-      if (state.maxPage !== state.currentPage) {
-        state.currentPage--;
+      if (state.maxPage - 1 !== state.currentPage) {
+        state.currentPage++;
       }
     },
     scrollUp(state) {
-      if (state.maxPage !== state.currentPage) {
-        state.currentPage++;
+      if (0 !== state.currentPage) {
+        state.currentPage--;
       }
     },
     pageChange(state, action) {

@@ -6,6 +6,7 @@ import { viewerScrollActions } from "redux/modules/viewer";
 import SectionHome from "section/Home/view";
 import SectionProject from "section/Project/view";
 import SectionAbout from "section/About/view";
+import { useThrottle } from "utils/useThrottle";
 const Viewer = styled.div`
   perspective: 1px;
   height: 100vh;
@@ -87,22 +88,27 @@ const TestBtn = styled.button`
 
 const sections = [SectionHome, SectionProject, SectionAbout];
 export default function PageHome() {
-  const { pageChange } = viewerScrollActions;
+  const { pageChange, scrollDown, scrollUp } = viewerScrollActions;
   const dispatch = useDispatch();
+  const { currentPage, maxPage } = useSelector((modules) => modules.viewerScrollReducer);
 
   useEffect(() => {
     const maxPage = sections.length;
     dispatch(pageChange({ maxPage }));
   }, []);
 
+  const onWheelViewer = useThrottle((e) => {
+    let delta = e.deltaY;
+    if (delta < 0) {
+      dispatch(scrollUp());
+    } else {
+      dispatch(scrollDown());
+    }
+  }, 1000);
+
   return (
     <>
-      <Viewer>
-        {/* <TestBtn as="div">
-          <button onClick={() => dispatch(pageChange({ currentPage: 0 }))}>0</button>
-          <button onClick={() => dispatch(pageChange({ currentPage: 1 }))}>1</button>
-          <button onClick={() => dispatch(pageChange({ currentPage: 2 }))}>2</button>
-        </TestBtn> */}
+      <Viewer onWheel={(e) => onWheelViewer(e)}>
         {sections.map((section, index) => (
           <react.Fragment key={section}>{section({ index })}</react.Fragment>
         ))}
