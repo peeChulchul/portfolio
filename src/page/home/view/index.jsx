@@ -1,10 +1,8 @@
 import React from "react";
 import react, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { sotre } from "redux/store";
-import GlobalStyle from "style/globla-style";
-import { viewerActions } from "redux/modules/viewer";
+import { useDispatch, useSelector } from "react-redux";
+import { viewerScrollActions } from "redux/modules/viewer";
 import SectionHome from "section/Home/view";
 import SectionProject from "section/Project/view";
 import SectionAbout from "section/About/view";
@@ -76,21 +74,35 @@ const Background = styled.section`
   }
 `;
 
+const TestBtn = styled.button`
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 100;
+  cursor: pointer;
+  width: 300px;
+  height: 300px;
+  background-color: white;
+`;
+
 const sections = [SectionHome, SectionProject, SectionAbout];
 export default function PageHome() {
-  // const viewerRef = useRef(null);
-  const { change } = viewerActions;
+  const { pageChange } = viewerScrollActions;
   const dispatch = useDispatch();
-  const { currentPage, maxPage } = useSelector((modules) => modules.viewerReducer);
 
   useEffect(() => {
     const maxPage = sections.length;
-    dispatch(change({ currentPage, maxPage }));
+    dispatch(pageChange({ maxPage }));
   }, []);
 
   return (
     <>
       <Viewer>
+        {/* <TestBtn as="div">
+          <button onClick={() => dispatch(pageChange({ currentPage: 0 }))}>0</button>
+          <button onClick={() => dispatch(pageChange({ currentPage: 1 }))}>1</button>
+          <button onClick={() => dispatch(pageChange({ currentPage: 2 }))}>2</button>
+        </TestBtn> */}
         {sections.map((section, index) => (
           <react.Fragment key={section}>{section({ index })}</react.Fragment>
         ))}

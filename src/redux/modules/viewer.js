@@ -9,12 +9,23 @@ const viewer = createSlice({
   name: "viewer",
   initialState,
   reducers: {
-    change(state, action) {
-      console.log(state);
-      console.log(action.payload);
+    scrollDown(state) {
+      if (state.maxPage !== state.currentPage) {
+        state.currentPage--;
+      }
+    },
+    scrollUp(state) {
+      if (state.maxPage !== state.currentPage) {
+        state.currentPage++;
+      }
+    },
+    pageChange(state, action) {
+      let { payload } = action;
+      const newState = { ...state, ...payload };
+      Object.assign(state, newState);
     }
   }
 });
 
-export const viewerReducer = viewer.reducer;
-export const viewerActions = viewer.actions;
+export const viewerScrollReducer = viewer.reducer;
+export const viewerScrollActions = viewer.actions;

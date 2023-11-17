@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { viewerReducer } from "./modules/viewer";
+import { viewerScrollReducer } from "./modules/viewer";
 
-const rootReducer = combineReducers({ viewerReducer });
+const rootReducer = combineReducers({ viewerScrollReducer });
 
 export const sotre = configureStore({ reducer: rootReducer });

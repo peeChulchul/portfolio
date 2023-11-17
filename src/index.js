@@ -5,12 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { sotre } from "redux/store";
 import GlobalStyle from "style/globla-style";
-
+import StyledThemeProvider from "style/theme";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={sotre}>
     <GlobalStyle />
-    <App />
+    <StyledThemeProvider>
+      <App />
+    </StyledThemeProvider>
   </Provider>
 );
 

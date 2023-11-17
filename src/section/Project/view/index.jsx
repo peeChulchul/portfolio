@@ -1,9 +1,10 @@
-import { Section } from "components/box";
 import React from "react";
-import { useSelector } from "react-redux";
+import SectionLayout from "section/common/section-layout";
 
 export default function SectionProject({ index }) {
-  const { currentPage, maxPage } = useSelector((modules) => modules.viewerReducer);
-
-  return <Section>SectionProject</Section>;
+  return (
+    <SectionLayout index={index} bg={"orange"}>
+      SectionProject
+    </SectionLayout>
+  );
 }

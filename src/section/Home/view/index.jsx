@@ -1,9 +1,12 @@
-import { Section } from "components/box";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import SectionLayout from "section/common/section-layout";
+import styled from "styled-components";
+import GlitchText from "../glitch-text";
 
 export default function SectionHome({ index }) {
-  const { currentPage, maxPage } = useSelector((modules) => modules.viewerReducer);
-
-  return <Section>SectionHome</Section>;
+  return (
+    <SectionLayout index={index} bg={"green"}>
+      <GlitchText text={"SectionHome"} />
+    </SectionLayout>
+  );
 }
